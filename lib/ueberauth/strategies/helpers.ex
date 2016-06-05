@@ -56,7 +56,10 @@ defmodule Ueberauth.Strategy.Helpers do
   encoded as query params.
   """
   @spec callback_url(Plug.t) :: String.t
-  def callback_url(conn, opts \\ []), do: full_url(conn, callback_path(conn), opts)
+  def callback_url(conn, opts \\ []) do
+    from_private(conn, :callback_url) ||
+    full_url(conn, callback_path(conn), opts)
+  end
 
   @doc """
   The configured allowed callback http methods.
